@@ -44,7 +44,7 @@ void UU1PlayerMovement::LookToTarget(FVector TargetLocation)
 	GetPawnOwner()->SetActorRotation(LookAtRotation);
 }
 
-void UU1PlayerMovement::Dash(FVector TargetLocation)
+void UU1PlayerMovement::Dash(FVector DashDirection)
 {
 	if (GetCharacterOwner() == nullptr) return;
 	if (DashCooldownTimer < DashCooldownDelay) return;
@@ -52,9 +52,8 @@ void UU1PlayerMovement::Dash(FVector TargetLocation)
 	CanDash = true;
 	DashActiveTimer = 0.f;
 	DashCooldownTimer = 0.f;
-	DashDirection = TargetLocation - GetCharacterOwner()->GetActorLocation();
 	DashDirection.Z = 0.f;
-	DashDirection =	DashDirection.GetSafeNormal();
+	DashDirectionVector = DashDirection.GetSafeNormal();
 }
 
 void UU1PlayerMovement::DashUpdate(float DeltaTime)
@@ -73,7 +72,7 @@ void UU1PlayerMovement::DashUpdate(float DeltaTime)
 
 			if (DashActiveTimer < DashDuration)
 			{
-				FVector Movement = DashDirection * DashSpeed * DeltaTime;
+				FVector Movement = DashDirectionVector * DashSpeed * DeltaTime;
 				GetCharacterOwner()->AddActorWorldOffset(Movement, true);
 			}
 			else

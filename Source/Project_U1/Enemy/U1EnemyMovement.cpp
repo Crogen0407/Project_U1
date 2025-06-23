@@ -40,7 +40,7 @@ void UU1EnemyMovement::TickComponent(float DeltaTime, ELevelTick TickType,
 	{
 		OnDash(); // 거리 넘어가면 대시 실행
 	}
-	else if (AIController)
+	if (AIController)
 	{
 		// 간단하게 NavMesh를 통해 추적
 		FAIMoveRequest MoveReq;

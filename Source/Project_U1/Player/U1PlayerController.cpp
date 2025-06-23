@@ -60,8 +60,8 @@ void AU1PlayerController::OnMove(const FInputActionValue& Value)
 {
 	if (ControlledPlayer == nullptr) return;
 	
-	FVector2D MovementVector = Value.Get<FVector2D>();
-	ControlledPlayer->GetPlayerMovementComponent()->Move(MovementVector);
+	MovementDirectionVector = Value.Get<FVector2D>();
+	ControlledPlayer->GetPlayerMovementComponent()->Move(MovementDirectionVector);
 }
 
 void AU1PlayerController::OnLookDirection() const
@@ -84,7 +84,7 @@ void AU1PlayerController::OnDash()
 
 	if (GetHitResultUnderCursor(ECC_Visibility, false, HitResult))
 	{
-		FVector TargetLocation = HitResult.Location;
+		FVector TargetLocation = FVector(MovementDirectionVector.X, MovementDirectionVector.Y, 0.0f);
 		ControlledPlayer->GetPlayerMovementComponent()->Dash(TargetLocation);
 	}
 }

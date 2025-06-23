@@ -62,4 +62,7 @@ private:
 	void OnDash();
 	void OnAttack();
 	void OnInteract();
+
+private:
+	FVector2D MovementDirectionVector;
 };

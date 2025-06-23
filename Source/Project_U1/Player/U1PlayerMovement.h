@@ -27,7 +27,7 @@ public:
 
 	void Move(FVector2D MovementVector);
 	void LookToTarget(FVector TargetLocation);
-	void Dash(FVector TargetLocation);
+	void Dash(FVector DashDirection);
 	void DashUpdate(float DeltaTime);
 
 private:
@@ -35,7 +35,7 @@ private:
 	bool CanDash;
 	float DashActiveTimer = 0.f;
 	float DashCooldownTimer = 0.f;
-	FVector DashDirection;
+	FVector DashDirectionVector;
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
