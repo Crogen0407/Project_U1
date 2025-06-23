@@ -6,7 +6,7 @@ UU1StatComponent::UU1StatComponent()
 {
 	if (!HasAnyFlags(RF_ClassDefaultObject)) // CDO일 경우에는 설정하지 않음
 	{
-		ConstructorHelpers::FObjectFinder<UU1StatSetDataAsset> DataAssetFinder(TEXT("/Script/Project_U1.U1StatSetDataAsset'/Game/DataAssets/DA_DefaultStatSet.DA_DefaultStatSet'"));
+		ConstructorHelpers::FObjectFinder<UU1StatSetDataAsset> DataAssetFinder(TEXT("/Game/DataAssets/DA_DefaultStatSet"));
 		if (DataAssetFinder.Succeeded())
 		{
 			StatSet = DataAssetFinder.Object;
@@ -18,13 +18,16 @@ UU1StatComponent::UU1StatComponent()
 
 float UU1StatComponent::GetOriginStatValue(EEntityStatType StatType)
 {
+	if (StatSet == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("UU1StatComponent::GetOriginStatValue - StatSet이 nullptr입니다! StatSet이 제대로 세팅되었는지 확인하세요."));
+		return -1.f;  // 혹은 기본값, 에러처리 값 반환
+	}
+
 	if (OverrideStats.Contains(StatType))
 		return OverrideStats[StatType];
-	
-	if (StatSet != nullptr)
-		return StatSet->Get(StatType);
-
-	return -1.f;
+    
+	return StatSet->Get(StatType);
 }
 
 int UU1StatComponent::GetOriginStatIntegerValue(EEntityStatType StatType)

@@ -1,8 +1,14 @@
 #include "U1Enemy.h"
 #include "Components/CapsuleComponent.h"
+#include "Project_U1/Enemy/U1EnemyAIController.h"
+#include "Project_U1/Enemy/U1EnemyMovement.h"
 
 AU1Enemy::AU1Enemy()
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UU1EnemyMovement>(TEXT("EnemyMovement")))
 {
+	AIControllerClass = AU1EnemyAIController::StaticClass();
+	CharacterMovement = CreateDefaultSubobject<UU1EnemyMovement>(TEXT("EnemyMovement"));
+	
 	// Setting capsule...
 	GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECR_Block);
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel2, ECR_Overlap); // Player는 Overlap만

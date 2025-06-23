@@ -18,13 +18,11 @@ class PROJECT_U1_API UU1PlayerMovement : public UCharacterMovementComponent, pub
 public:
 	virtual void Initialize(UU1StatComponent* StatComponent) override;;
 	
-protected:
-	virtual void BeginPlay() override;
-
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 		FActorComponentTickFunction* ThisTickFunction) override;
 
+	void MoveUpdate(float DeltaTime);
 	void Move(FVector2D MovementVector);
 	void LookToTarget(FVector TargetLocation);
 	void Dash(FVector DashDirection);
@@ -36,7 +34,8 @@ private:
 	float DashActiveTimer = 0.f;
 	float DashCooldownTimer = 0.f;
 	FVector DashDirectionVector;
-
+	bool IsMoving = false;
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float DashDistance = 500.f;

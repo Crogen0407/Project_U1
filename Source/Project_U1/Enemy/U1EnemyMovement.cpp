@@ -14,7 +14,7 @@ UU1EnemyMovement::UU1EnemyMovement()
 void UU1EnemyMovement::Initialize(UU1StatComponent* StatComponent)
 {
 	CashedStatComponent = StatComponent;
-	
+	UE_LOG(LogTemp, Log, TEXT("%d"), CashedStatComponent != nullptr)
 	MaxWalkSpeed = CashedStatComponent->GetFinalStatValue(EEntityStatType::MoveSpeed);
 	
 	OwnerPawn = Cast<APawn>(GetOwner());

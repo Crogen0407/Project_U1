@@ -43,7 +43,7 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = StatComponent)
-	UU1StatComponent* StatComponent;
+	TObjectPtr<UU1StatComponent> StatComponent;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = HealthComponent)
 	UU1HealthComponent* HealthComponent;

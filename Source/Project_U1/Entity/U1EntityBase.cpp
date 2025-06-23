@@ -28,18 +28,22 @@ AU1EntityBase::AU1EntityBase()
 void AU1EntityBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	TArray<UActorComponent*> Components;
-	GetComponents(Components);
 
-	for (UActorComponent* Component : GetComponents())
+	if (StatComponent)
 	{
-		if (IU1StatInitializeObject* InitObj = Cast<IU1StatInitializeObject>(Component))
+		TArray<UActorComponent*> Components;
+		GetComponents(Components);
+
+		for (UActorComponent* Component : GetComponents())
 		{
-			InitObj->Initialize(StatComponent);
-		}
+			if (IU1StatInitializeObject* InitObj = Cast<IU1StatInitializeObject>(Component))
+			{
+				InitObj->Initialize(StatComponent);
+			}
+		}	
 	}
 }
+
 // Called every frame
 void AU1EntityBase::Tick(float DeltaTime)
 {

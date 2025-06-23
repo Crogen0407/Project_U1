@@ -9,11 +9,6 @@
 void UU1PlayerMovement::Initialize(UU1StatComponent* StatComponent)
 {
 	CashedStatComponent = StatComponent;
-}
-
-void UU1PlayerMovement::BeginPlay()
-{
-	Super::BeginPlay();
 	bOrientRotationToMovement = false;
 	DashCooldownTimer = DashCooldownDelay;
 	GetPawnOwner()->bUseControllerRotationYaw = false;
@@ -24,6 +19,12 @@ void UU1PlayerMovement::TickComponent(float DeltaTime, ELevelTick TickType,
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	DashUpdate(DeltaTime);
+	MoveUpdate(DeltaTime);
+}
+
+void UU1PlayerMovement::MoveUpdate(float DeltaTime)
+{
+	IsMoving = GetLastInputVector().SquaredLength() > 0.1f;
 }
 
 void UU1PlayerMovement::Move(FVector2D MovementVector)
@@ -39,7 +40,6 @@ void UU1PlayerMovement::LookToTarget(FVector TargetLocation)
 	FVector PlayerLocation = GetPawnOwner()->GetActorLocation();
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(PlayerLocation, TargetLocation);
 	LookAtRotation.Pitch = 0.0f;
-	//LookAtRotation.Yaw = 0.0f;
 	LookAtRotation.Roll = 0.0f;
 	GetPawnOwner()->SetActorRotation(LookAtRotation);
 }
@@ -47,7 +47,7 @@ void UU1PlayerMovement::LookToTarget(FVector TargetLocation)
 void UU1PlayerMovement::Dash(FVector DashDirection)
 {
 	if (GetCharacterOwner() == nullptr) return;
-	if (DashCooldownTimer < DashCooldownDelay) return;
+	if (DashCooldownTimer < DashCooldownDelay || IsMoving == false) return;
 
 	CanDash = true;
 	DashActiveTimer = 0.f;
