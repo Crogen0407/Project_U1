@@ -45,7 +45,7 @@ void UU1EnemyMovement::TickComponent(float DeltaTime, ELevelTick TickType,
 		// 간단하게 NavMesh를 통해 추적
 		FAIMoveRequest MoveReq;
 		MoveReq.SetGoalActor(TargetActor);
-		MoveReq.SetAcceptanceRadius(200.f); // 도착 판정 거리
+		MoveReq.SetAcceptanceRadius(AcceptanceRadius); // 도착 판정 거리
 
 		FNavPathSharedPtr NavPath;
 		AIController->MoveTo(MoveReq, &NavPath);

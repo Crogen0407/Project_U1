@@ -4,10 +4,8 @@
 #include "Project_U1/Enemy/U1EnemyMovement.h"
 
 AU1Enemy::AU1Enemy()
-	: Super(ObjectInitializer.SetDefaultSubobjectClass<UU1EnemyMovement>(TEXT("EnemyMovement")))
 {
 	AIControllerClass = AU1EnemyAIController::StaticClass();
-	CharacterMovement = CreateDefaultSubobject<UU1EnemyMovement>(TEXT("EnemyMovement"));
 	
 	// Setting capsule...
 	GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECR_Block);

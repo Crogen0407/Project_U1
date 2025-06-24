@@ -30,8 +30,11 @@ public:
 	void OnDash();
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Dash")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EnemyMovement")
 	float DashableDistance = 500.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="EnemyMovement")
+	float AcceptanceRadius = 100.f;
 	
 	UPROPERTY(Transient)
 	APawn* OwnerPawn;
