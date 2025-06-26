@@ -21,3 +21,4 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = StaticMesh)
 	TObjectPtr<UStaticMeshComponent> StaticMeshComponent;
 };
+

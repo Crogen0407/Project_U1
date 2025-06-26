@@ -6,6 +6,7 @@
 AU1Enemy::AU1Enemy()
 {
 	AIControllerClass = AU1EnemyAIController::StaticClass();
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 	
 	// Setting capsule...
 	GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECR_Block);

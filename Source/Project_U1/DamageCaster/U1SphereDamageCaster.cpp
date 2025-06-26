@@ -35,9 +35,9 @@ TArray<FHitInfo> UU1SphereDamageCaster::CastDamage_Implementation(const FAttackI
 
 			Damageable->ApplyDamage(GetOwner(), AttackInfo.Damage);
 			Result.Add({Actor});
+			DamageCastSuccessEvent.Broadcast();
 		}
 	}
 
-	OverlappedActors.Empty();
 	return Result;
 }

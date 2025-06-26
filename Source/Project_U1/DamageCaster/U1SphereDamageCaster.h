@@ -7,9 +7,8 @@
 #include "Components/SphereComponent.h"
 #include "U1SphereDamageCaster.generated.h"
 
-/**
- * 
- */
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDamageCastSuccessEven);
 UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class PROJECT_U1_API UU1SphereDamageCaster : public USphereComponent, public IU1DamageCaster
 {
@@ -17,7 +16,7 @@ class PROJECT_U1_API UU1SphereDamageCaster : public USphereComponent, public IU1
 
 public:
 	UU1SphereDamageCaster();
-
+	
 private:
 	UFUNCTION()
 	void OnDamageAreaOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
@@ -28,6 +27,10 @@ private:
 public:
 	virtual TArray<FHitInfo> CastDamage_Implementation(const FAttackInfo AttackInfo, bool PopupText) override;
 
+public:
+	UPROPERTY(BlueprintAssignable, Category = "DamageCaster")
+	FDamageCastSuccessEven DamageCastSuccessEvent;
+	
 protected:
 	UPROPERTY(Transient)
 	TSet<AActor*> OverlappedActors;

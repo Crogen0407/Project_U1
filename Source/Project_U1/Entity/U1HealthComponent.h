@@ -8,7 +8,7 @@
 
 class UU1StatComponent;
 
-DECLARE_EVENT_TwoParams(UU1HealthComponent, FHealthChangedEvent, float, float)
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FHealthChangedEvent, float, PreviousHealth, float, CurrentHealth);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class PROJECT_U1_API UU1HealthComponent : public UActorComponent, public IU1Damageable, public IU1StatInitializeObject
@@ -32,6 +32,7 @@ public:
 	virtual void OnDie() override;
 
 public:
+	UPROPERTY(BlueprintAssignable, Category = "HealthComponent")
 	FHealthChangedEvent HealthChangedEvent;
 	
 protected:
